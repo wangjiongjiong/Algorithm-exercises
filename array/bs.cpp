@@ -106,6 +106,70 @@ public:
         return right;
 
     }
+
+    vector<int> searchRange(vector<int>& nums, int target) 
+    {
+        int left = getleft(nums,target);
+        int right = getright(nums,target);
+
+        if(left == -2 || right == -2)
+        {
+            return {-1,-1};
+        }
+        else if(right - left > 1)
+        {
+            return {left + 1,right - 1};
+        }
+        else
+        {
+            return {-1,-1};
+        }
+
+    }
+private:
+    int getright(vector<int>& nums, int target)
+    {
+        int left , right , middle;
+        left = 0;
+        right = nums.size() - 1;
+        int rightborder = -2;
+        while(left <= right)
+        {
+            middle = left + (right - left)/2;
+            if(nums[middle] > target)
+            {
+                right = middle - 1;
+            }
+            else
+            {
+                left = middle + 1;
+                rightborder = left;
+            }
+        }
+        return rightborder;
+    }
+
+    int getleft(vector<int>& nums, int target)
+    {
+        int left , right , middle;
+        left = 0;
+        right = nums.size() - 1;
+        int leftborder = -2;
+        while(left <= right)
+        {
+            middle = left + (right - left)/2;
+            if(nums[middle] >= target)
+            {
+                right = middle - 1;
+                leftborder = right;
+            }
+            else
+            {
+                left = middle + 1;
+            }
+        }
+        return leftborder;
+    }
 };
 
 int main(int argc,char **argv)
@@ -118,6 +182,14 @@ int main(int argc,char **argv)
     /* 35 */
     int index2 = solution.searchInsert2(test,-2);
     cout<<index2<<endl;
+    /* 34 */
+    vector<int> test2 = {5,7,7,8,8,10};
+    vector<int> res = solution.searchRange(test2,8);
+    for(auto &a : res)
+    {
+        cout<<a;
+    }
+
 
     return 0;
 }
