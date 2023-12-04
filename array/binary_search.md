@@ -173,3 +173,34 @@ public:
 3. 数组中不存在查找的数，且数组中的数都比`target`小，此时`right`就为数组最后因此返回`right+1`
 4. 数组中不存在查找的数，`target`插入数组之间，循环最后退出时right就为此时区间的右值，又因为这种情况我们考虑了左闭右闭区间，因此需要`+1`
 
+综上最后我们返回`right+1`
+
+另一种写法，另一种写法就是二分查找的另一种写法，考虑了区间是左闭右开，最后返回的部分与上一种写法类似，最后返回的是`right`
+
+```c++
+int searchInsert2(vector<int>& nums, int target) {
+
+        int left , right ,middle;
+        left = 0;
+        right = nums.size();
+        while(left < right)
+        {
+            middle = left + (right - left)/2;
+            if(nums[middle] > target)
+            {
+                right = middle;
+            }
+            else if(nums[middle] < target)
+            {
+                left = middle + 1;
+            }
+            else
+            {
+                return middle;
+            }
+        }
+        return right;
+
+    }
+```
+
