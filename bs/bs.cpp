@@ -166,8 +166,29 @@ public:
             }
         }
         return res;
-        
-        
+    }
+    bool isPerfectSquare(int num) 
+    {
+        int left , right , middle;
+        left = 0;
+        right = num;
+        while(left<=right)
+        {
+            middle = left + (right-left)/2;
+            if((long long)middle*middle == num)
+            {
+                return true;
+            }
+            else if((long long)middle*middle < num)
+            {
+                left = middle + 1;
+            }
+            else
+            {
+                right = middle - 1;
+            }
+        }
+        return false;
     }
 private:
     int getright(vector<int>& nums, int target)
@@ -234,10 +255,14 @@ int main(int argc,char **argv)
         cout<<a;
     } */
     /* 69 */
-    int n = 4;
+    /* int n = 4;
     int res = solution.mySqrt(n);
     int res2 = solution.mySqrt_change(n);
-    cout<<res<<res2<<endl;
+    cout<<res<<res2<<endl; */
+    /* 367 */
+    int num = 16;
+    bool res = solution.isPerfectSquare(num);
+    cout<<res<<endl;
 
     return 0;
 }
