@@ -74,6 +74,53 @@ public:
         }
         return leftIndex;   // leftIndex一定指向了最终数组末尾的下一个元素
     }
+
+    int removeDuplicates1(vector<int>& nums) 
+    {
+        //暴力解法
+        int size = nums.size();
+        for(int i = 0;i<size-1;)
+        {
+            if(nums[i] == nums[i+1])
+            {
+                for(int j = i + 1;j<size-1;++j)
+                {
+                    nums[j] = nums[j+1];
+                    
+                }
+                size--;
+            }
+            else
+            {
+                i++;
+            }
+        } 
+        return size;     
+
+    }
+
+    int removeDuplicates2(vector<int>& nums) 
+    {
+        //双指针方法
+        int fast , low;
+        int size = nums.size();
+        if(size == 0)
+        {
+            return 0;
+        }
+        fast  = 1, low = 1;
+        while (fast < size)
+        {
+            if(nums[fast - 1] != nums[fast])
+            {
+                nums[low] = nums[fast];
+                low++;
+            }
+            fast++;
+        }
+        return low;
+
+    }
 };
 
 
@@ -81,7 +128,7 @@ int main(int argc , char* argv[])
 {
     Solution solution;
     /* 27 */
-    vector<int> vec = {0,1,2,2,3,0,4,2};
+    /* vector<int> vec = {0,1,2,2,3,0,4,2};
     int size1 = solution.removeElement1(vec,2);
     int size2 = solution.removeElement3(vec,2);
     for(int i = 0; i<size1;++i)
@@ -90,6 +137,13 @@ int main(int argc , char* argv[])
     }
     cout<<"\n";
     for(int i = 0; i<size2;++i)
+    {
+        cout<<vec[i]<<" ";
+    } */
+    /* 26 */
+    vector<int> vec = {0,0,1,2,2,3,3,4};
+    int size = solution.removeDuplicates2(vec);
+    for(int i = 0; i<size;++i)
     {
         cout<<vec[i]<<" ";
     }
