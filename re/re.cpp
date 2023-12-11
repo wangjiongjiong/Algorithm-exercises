@@ -142,8 +142,13 @@ int main(int argc , char* argv[])
     } */
     /* 26 */
     vector<int> vec = {0,0,1,2,2,3,3,4};
-    int size = solution.removeDuplicates2(vec);
-    for(int i = 0; i<size;++i)
+    int size1 = solution.removeDuplicates1(vec);
+    int size2 = solution.removeDuplicates2(vec);
+    for(int i = 0; i<size1;++i)
+    {
+        cout<<vec[i]<<" ";
+    }
+    for(int i = 0; i<size2;++i)
     {
         cout<<vec[i]<<" ";
     }
