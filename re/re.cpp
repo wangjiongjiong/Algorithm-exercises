@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<algorithm>
 
 using std::string;
 using std::vector;
@@ -121,6 +122,52 @@ public:
         return low;
 
     }
+    void moveZeroes1(vector<int>& nums) 
+    {
+        //双指针思想
+        int size = nums.size();
+        int fast = 0 , low = 0;
+        while (fast < size)
+        {
+            if(nums[fast] != 0)
+            {
+                std::swap(nums[fast],nums[low]);
+                low++;
+            }
+            fast++;
+        }
+    }
+    void moveZeroes2(vector<int>& nums) 
+    {
+        //两次遍历
+        int j = 0;
+        for(int i = 0; i<nums.size();++i)
+        {
+            if(nums[i] != 0)
+            {
+                nums[j] = nums[i];
+                ++j;
+            }
+        }
+        for(int k = j;k<nums.size();++k)
+        {
+            nums[k] = 0;
+        }
+    }
+    void moveZeroes3(vector<int>& nums) 
+    {
+        //快速排序思想,类似双指针但是更简洁
+        int left = 0;
+        int size = nums.size();
+        for(int i = 0; i<size;++i)
+        {
+            if(nums[i] != 0)
+            {
+                std::swap(nums[left],nums[i]);
+                left++;
+            }
+        }
+    }
 };
 
 
@@ -141,7 +188,7 @@ int main(int argc , char* argv[])
         cout<<vec[i]<<" ";
     } */
     /* 26 */
-    vector<int> vec = {0,0,1,2,2,3,3,4};
+    /* vector<int> vec = {0,0,1,2,2,3,3,4};
     int size1 = solution.removeDuplicates1(vec);
     int size2 = solution.removeDuplicates2(vec);
     for(int i = 0; i<size1;++i)
@@ -151,6 +198,13 @@ int main(int argc , char* argv[])
     for(int i = 0; i<size2;++i)
     {
         cout<<vec[i]<<" ";
+    } */
+    /* 283 */
+    vector<int> vec = {1,3,0,0,0,12};
+    solution.moveZeroes3(vec);
+    for(auto e : vec)
+    {
+        cout<<e<<" ";
     }
 
 }
