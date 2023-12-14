@@ -168,6 +168,137 @@ public:
             }
         }
     }
+    bool backspaceCompare1(string s, string t) 
+    {
+        //使用栈的思想
+        string s_stack;
+        string t_stack;
+        for(auto a :s)
+        {
+            if(a!='#')
+            {
+                s_stack.push_back(a);
+            }
+            else if(!s_stack.empty())
+            {
+                s_stack.pop_back();
+            }
+        }
+        for(auto b :t)
+        {
+            if(b!='#')
+            {
+                t_stack.push_back(b);
+            }
+            else if(!t_stack.empty())
+            {
+                t_stack.pop_back();
+            }
+        }
+        if(t_stack == s_stack)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    bool backspaceCompare2(string s, string t) 
+    {
+        //使用双指针思路
+        int s_point = s.length() - 1;
+        int t_point = t.length() - 1;
+        int s_skip = 0;
+        int t_skip = 0;
+        while (s_point >= 0 || t_point >= 0)
+        {
+            while (s_point >= 0)
+            {
+                if(s[s_point] == '#')
+                {
+                    s_skip++;
+                    s_point--;
+                }
+                else if (s_skip > 0)
+                {
+                    s_skip--;
+                    s_point--;
+                }
+                else
+                {
+                    break;
+                }
+                
+            }
+            while (t_point >= 0)
+            {
+                if(t[t_point] == '#')
+                {
+                    t_skip++;
+                    t_point--;
+                }
+                else if (t_skip > 0)
+                {
+                    t_skip--;
+                    t_point--;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if(s_point >= 0 && t_point >= 0)
+            {
+                if(s[s_point] != t[t_point])
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if(s_point >= 0 || t_point >= 0)
+                {
+                    return false;
+                }
+            }
+            s_point--;
+            t_point--; 
+        }
+        return true;      
+    }
+    bool backspaceCompare3(string s, string t)
+    {
+        //也是双指针但是感觉要优于官解
+        return equal_string(s) == equal_string(t);
+
+    }
+private:
+    string equal_string(string str)
+    {
+        int fast = 0;
+        int low = 0;
+        int size = str.length();
+        while (fast < size)
+        {
+            if(str[fast] != '#')
+            {
+                str[low++] = str[fast++];
+            }
+            else
+            {
+                fast++;
+                if(low > 0)
+                {
+                    low--;
+                }
+            }
+        }
+        return str.substr(0,low);
+        
+    }
 };
 
 
@@ -200,11 +331,15 @@ int main(int argc , char* argv[])
         cout<<vec[i]<<" ";
     } */
     /* 283 */
-    vector<int> vec = {1,3,0,0,0,12};
+    /* vector<int> vec = {1,3,0,0,0,12};
     solution.moveZeroes3(vec);
     for(auto e : vec)
     {
         cout<<e<<" ";
-    }
+    } */
+    /* 844 */
+    string s = "a#dc";
+    string t = "#a#c";
+    cout<<solution.backspaceCompare3(s,t);
 
 }
